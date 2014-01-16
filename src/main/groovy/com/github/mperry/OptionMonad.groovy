@@ -27,9 +27,9 @@ class OptionMonad extends Monad<Option> {
        Option.<B>some(b)
     }
 
-    @Override
-    def <A, B> Option<B> map(Option<A> ma, F<A, B> f) {
-        (Option<B>) super.map(ma, f)
-    }
+//    @Override
+//    def <A, B> Option<B> map(Option<A> ma, F<A, B> f) {
+//        (Option<B>) super.map(ma, f)
+//    }
 
 }

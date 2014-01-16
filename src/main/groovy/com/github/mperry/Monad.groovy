@@ -69,10 +69,10 @@ abstract class Monad<M> {
         }
     }
 
-    @TypeChecked(TypeCheckingMode.SKIP)
-    def <A> M<List<A>> replicateM(Integer n, M<A> ma) {
-        sequence(List.repeat(n, ma))
-    }
+//    @TypeChecked(TypeCheckingMode.SKIP)
+//    def <A> M<List<A>> replicateM(Integer n, M<A> ma) {
+//        sequence(List.repeat(n, ma))
+//    }
 
     @TypeChecked(TypeCheckingMode.SKIP)
     def <A, B, C> F<A, M<C>> compose(F<A, M<B>> f, F<B, M<C>> g) {
