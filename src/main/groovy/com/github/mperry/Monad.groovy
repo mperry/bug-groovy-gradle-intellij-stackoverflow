@@ -57,11 +57,11 @@ abstract class Monad<M> {
         skip(foldM(s, b, f))
     }
 
-    def <A> M<List<A>> sequence(List<M<A>> list) {
-        (M<List<A>>) list.fold(unit([])) { M<List<A>> acc, M<A> ma ->
-            map2(ma, acc, { A a, List<A> las -> las + [a] } as F2)
-        }
-    }
+//    def <A> M<List<A>> sequence(List<M<A>> list) {
+//        (M<List<A>>) list.fold(unit([])) { M<List<A>> acc, M<A> ma ->
+//            map2(ma, acc, { A a, List<A> las -> las + [a] } as F2)
+//        }
+//    }
 
     def <A, B> M<List<B>> traverse(List<A> list, F<A, M<B>> f) {
         (M<List<B>>) list.inject(unit([])) { M<List<B>> acc, A a ->
