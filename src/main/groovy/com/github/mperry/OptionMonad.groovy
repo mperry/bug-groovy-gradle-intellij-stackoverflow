@@ -12,13 +12,14 @@ import groovy.transform.TypeCheckingMode
 class OptionMonad extends Monad<Option> {
 
 //    @Override
-    def <A, B> Option<B> flatMapTyped(Option<A> ma, F<A, Option<B>> f) {
-        ma.bind(f)
-    }
+//    def <A, B> Option<B> flatMapTyped(Option<A> ma, F<A, Option<B>> f) {
+//        ma.bind(f)
+//    }
 
     @Override
     def <A, B> Option flatMap(Option ma, F<A, Option> f) {
-        flatMapTyped(ma, f)
+        ma.bind(f)
+//        flatMapTyped(ma, f)
     }
 
     @TypeChecked(TypeCheckingMode.SKIP)
