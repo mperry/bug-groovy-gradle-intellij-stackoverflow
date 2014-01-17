@@ -14,9 +14,19 @@ The environment this uses is:
 * JRE 1.7.0_45-b18 amd64
 * Gradle 1.9
 
+Note that commenting out the @TypeChecked annotation on line 14 of the OptionMonadTest class allows the IDE to compile successfully.  I am guessing this has to do with type checking where OptionMonadTest (with type checking) calls Monad class (without type checking), in particular the join method:
+
+```groovy
+    def <A> M<A> join(M<M<A>> mma) {
+        flatMap(mma, {M<A> ma -> ma} as F)
+    }
+```
+
+where M is a generic type parameter to the Monad class.
+
 The full output from the IDE is:
 
-
+```
 Groovyc: java.lang.StackOverflowError
 	at org.codehaus.groovy.ast.GenericsType.isPlaceholder(GenericsType.java:135)
 	at org.codehaus.groovy.transform.stc.StaticTypeCheckingVisitor.fullyResolve(StaticTypeCheckingVisitor.java:2834)
@@ -1048,4 +1058,4 @@ Compilation completed with 1 error and 2 warnings in 8 sec
 Groovyc: Internal groovyc error: code 1
 Groovyc: The global transform for class groovy.grape.GrabAnnotationTransformation is defined in both jar:file:/C:/Users/MarkPerry/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.0.5/caef1126e5358bf1327e8b4381a827da9accbb47/groovy-all-2.0.5.jar!/META-INF/services/org.codehaus.groovy.transform.ASTTransformation and jar:file:/C:/Users/MarkPerry/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.1.6/82b79e22a8c17837dcd5b4b6b1bc888e108f672c/groovy-2.1.6.jar!/META-INF/services/org.codehaus.groovy.transform.ASTTransformation - the former definition will be used and the latter ignored.
 Groovyc: The global transform for class org.codehaus.groovy.ast.builder.AstBuilderTransformation is defined in both jar:file:/C:/Users/MarkPerry/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.0.5/caef1126e5358bf1327e8b4381a827da9accbb47/groovy-all-2.0.5.jar!/META-INF/services/org.codehaus.groovy.transform.ASTTransformation and jar:file:/C:/Users/MarkPerry/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy/2.1.6/82b79e22a8c17837dcd5b4b6b1bc888e108f672c/groovy-2.1.6.jar!/META-INF/services/org.codehaus.groovy.transform.ASTTransformation - the former definition will be used and the latter ignored.
-
+```
